@@ -1,0 +1,33 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	int test;
+	cin>>test;
+	while(test--)
+	{
+		long long int n,b,temp,rem;
+		cin>>n>>b;
+		if(n>b)
+		{
+		temp=n/2;
+		if(temp%b!=0)
+		{
+			if(temp%b>=(b-temp%b))
+			{
+				temp=temp+(b-temp%b);
+			}
+			else
+			{
+				temp=temp-temp%b;
+			}
+		}
+		rem=n-temp;
+		cout<<(rem*temp)/b<<"\n";
+		}else
+		{
+			cout<<"0\n";
+		}
+	}
+	return 0;
+}

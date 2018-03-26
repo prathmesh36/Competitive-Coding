@@ -1,0 +1,22 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	int test;
+	cin>>test;
+	while(test--){
+		int n,ans=0;
+		cin>>n;
+		string field;
+		cin>>field;
+		size_t found=0;
+		while(field.find(".",found)!= std::string::npos)
+		{
+			ans++;
+			found=field.find(".",found)+3;
+		}
+		cout<<ans<<"\n";
+
+	}
+	return 0;
+}

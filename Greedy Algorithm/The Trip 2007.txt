@@ -1,0 +1,71 @@
+#include <iostream>
+#include<vector>
+#include<algorithm>
+using namespace std;
+
+int main() {
+
+int n;
+bool enter=false;
+while(cin>>n,n)
+{
+	int i,temp,r=1,max=0,j;
+	vector<int> v;
+
+	for(i=0;i<n;i++)
+	{
+		cin>>temp;
+		v.push_back(temp); //take bag inputs
+	}
+
+	sort(v.begin(),v.end()); //sort all the bags
+
+	for(i=0;i<n-1;i++)
+	{
+		if(v[i]==v[i+1])
+		{
+			r++;
+		}else
+		{											//find the maximum repeated which indicates the no of outermost bags required as bag of same size cannot go inside one another
+		if(r>max)
+		{
+			max=r;
+		}
+		r=1;
+		}
+	}
+	if(r>max)
+	{
+	max=r;
+	}
+
+	vector<vector<int>> bags(max); 	// create a mulitdimentional vector of len = the max repeated number
+
+	for(i=0;i<n;i++)
+	{
+	bags[i%max].push_back(v[i]);		// put every bag in each in vec of multidimensional vector in round robin fashin
+	}
+
+	if(enter)cout<<"\n";
+	enter=true;
+	cout<<max<<"\n";
+
+	for(i=0;i<bags.size();i++)
+	{
+		for(j=0;j<bags[i].size();j++)
+		{
+    	printf("%s%d", (j?" ":""), bags[i][j]);	// print the result
+		}
+		cout<<"\n";
+	}
+}
+return 0;
+}
+
+HINT
+ sort the vector
+The main hint here is the no. of repeated elements, find maximum repeated which indicates the no of
+outermost bags required as bag of same size cannot go inside one another
+then half the work is done
+now put all bags in max size multidimensional vector
+refer the comment in program!

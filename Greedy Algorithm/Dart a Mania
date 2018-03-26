@@ -1,0 +1,73 @@
+#include <iostream>
+#include<unordered_set>
+#include<algorithm>
+#include<string>
+using namespace std;
+
+int main() {
+	int n;
+	cin>>n;
+	if(n>0)
+	{
+		while(n>0)
+		{
+
+			int a,b,c,count=0,count2=0;
+			unordered_set<string> comb;
+			if(n<=180)
+			{
+			for(a=0;a<=60 ;a++)
+			{
+				if((a<=20 || ( (a>20 && a<=40) && (a%2==0 || a%3==0)) || (a>40 && a%3==0) || a==50) && (a<=n))
+				{
+					for(b=0;b<=60;b++)
+					{
+						if((b<=20 ||  ( (b>20 && b<=40) && (b%2==0 || b%3==0)) || (b>40 && b%3==0) || b==50 ) && (a+b<=n))
+						{
+							for(c=0;c<=60;c++)
+							{
+								if((c<=20 ||  ( (c>20 && c<=40) && (c%2==0 || c%3==0)) || (c>40 && c%3==0) || c==50) && (a+b+c<=n))
+								{
+									if(a+b+c==n)
+									{
+										//cout<<a<<" "<<b<<" "<<c<<"\n";
+										//cout<<to_string(a)+to_string(b)+to_string(c)<<"\n";
+  										if (comb.find(to_string(a)+"/"+to_string(b)+"/"+to_string(c)) == comb.end())
+										{
+										//cout<<"///////"<<a<<" "<<b<<" "<<c<<"\n";
+											count2++;
+											int p[3];
+											p[0]=a;
+											p[1]=b;
+											p[2]=c;
+											do
+											{
+												comb.insert(to_string(p[0])+"/"+to_string(p[1])+"/"+to_string(p[2]));
+											}while(next_permutation(p, p+3));
+										}
+										count++;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			}
+			if(count==0 && count2 ==0)
+			{
+			cout<<"THE SCORE OF "<<n<<" CANNOT BE MADE WITH THREE DARTS.\n";
+			cout<<"**********************************************************************\n";
+			}
+			else
+			{
+			cout<<"NUMBER OF COMBINATIONS THAT SCORES "<<n<<" IS "<<count2<<".\n";
+			cout<<"NUMBER OF PERMUTATIONS THAT SCORES "<<n<<" IS "<<count<<".\n";
+			cout<<"**********************************************************************\n";
+			}
+			cin>>n;
+		}
+		cout<<"END OF OUTPUT\n";
+	}
+	return 0;
+}

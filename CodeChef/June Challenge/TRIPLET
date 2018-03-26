@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+#define int long long int
+using namespace std;
+
+const int mod = 1e9+7;
+
+#undef int
+int main()
+{
+#define int long long int
+
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int p, q, r;
+        cin>>p>>q>>r;
+        vector<int> a(p+1, 0), prea(p+1, 0), b(q+1, 0), c(r+1, 0), prec(r+1, 0);
+        for(int i = 1;i<=p;i++)
+            cin>>a[i];
+        for(int i = 1;i<=q;i++)
+            cin>>b[i];
+        for(int i = 1;i<=r;i++)
+            cin>>c[i];
+        sort(a.begin(), a.end());
+        sort(b.begin(), b.end());
+        sort(c.begin(), c.end());
+        for(int i = 1;i<=p;i++)
+            prea[i] = (prea[i-1]+a[i])%mod;
+        for(int i = 1;i<=r;i++)
+            prec[i] = (prec[i-1]+c[i])%mod;
+        int ans = 0;
+        for(int i = 1;i<=q;i++)
+        {
+            int x = lower_bound(a.begin(), a.end(), b[i]+1)-a.begin()-1,
+            z = lower_bound(c.begin(), c.end(), b[i]+1)-c.begin()-1;
+            ans = (ans+((((b[i]*b[i])%mod)*x)%mod)*z)%mod;
+            ans = (ans+(((prea[x]*b[i])%mod)*z)%mod)%mod;
+            ans = (ans+(((prec[z]*b[i])%mod)*x)%mod)%mod;
+            ans = (ans+(prec[z]*prea[x])%mod)%mod;
+        }
+        cout<<ans<<endl;
+    }
+
+    

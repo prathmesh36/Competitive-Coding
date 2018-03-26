@@ -1,0 +1,32 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		int n,r,temp1,temp2,ub=1000000000,lb=0,flag=1;
+		cin>>n>>r;
+		cin>>temp1;
+		for(int i=1;i<n;i++)
+		{
+			cin>>temp2;
+			if(temp2>ub || temp2<lb)
+			{
+				flag=0;
+			}
+			if(temp2>temp1)
+			lb=temp1;
+			if(temp2<temp1)
+			ub=temp1;
+			temp1=temp2;
+
+		}
+		if(flag==0)
+		printf("NO\n");
+		else
+		printf("YES\n");
+	}
+	return 0;
+}

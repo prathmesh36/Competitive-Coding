@@ -1,0 +1,4 @@
+HINT for match making pair
+sort the bachelors in decreasing order and then find a match for them in spinster list using floor binary search
+remove that bachelor and the spinster which is found
+repeat this process

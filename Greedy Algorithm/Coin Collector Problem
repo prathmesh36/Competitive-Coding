@@ -1,0 +1,42 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main()
+{
+    int T;
+    cin >> T;
+    while ( T-- )
+    {
+        int n;
+        cin >> n;
+
+        vector<int> values;
+        for (int i = 0; i < n; ++i)
+        {
+            int value;
+            cin >> value;
+            values.push_back(value);
+        }
+
+        int sum = 1;
+        int coins = values.size() > 1? 2 : 1;  // if only one denomination then one coin directly and if more than one then two denominations directly(U must know why)
+        // Get as more coins of smaller values as possible.
+        for (int i = 1; i < values.size() - 1; ++i)
+            if (sum + values[i] < values[i + 1])
+            {
+                sum += values[i];
+                ++coins;
+            }
+
+        cout << coins << endl;
+    }
+    return 0;
+}
+HINT
+keep adding denomination from the index 1 in sum(Initialized with 1) and check if it is less then the next denomination
+(this statement checks if a withdraw amount is capable of getting all the denomination below it
+it can also be written as below for more understanding
+next denomination(the withdraw amount '<' states that it is less than the next denomiation ) - current demoniation(the nearest coin) > sum of all lower denomiation )
+ignore if it is not greater than the RHS stating that it is not capable of getting all the denominations
+Thus that coin wont be in our squence of coin of max denominations

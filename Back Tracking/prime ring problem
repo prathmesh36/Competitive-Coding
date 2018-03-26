@@ -1,0 +1,90 @@
+#include <iostream>
+#include<unordered_set>
+#include<vector>
+#include<cstring>
+using namespace std;
+int n;
+int nums[16];
+bool numbit[16];
+vector<int> numstack(n);
+unordered_set<int> pnum;
+void SieveOfEratosthenes()
+{
+    // Create a boolean array "prime[0..n]" and initialize
+    // all entries it as true. A value in prime[i] will
+    // finally be false if i is Not a prime, else true.
+    bool prime[n+(n-1)+1];
+    memset(prime, true, sizeof(prime));
+
+    for (int p=2; p*p<=(n+(n-1)); p++)
+    {
+        // If prime[p] is not changed, then it is a prime
+        if (prime[p] == true)
+        {
+            // Update all multiples of p
+            for (int i=p*2; i<=(n+(n-1)); i += p)
+                prime[i] = false;
+        }
+    }
+
+    // Print all prime numbers
+    for (int p=2; p<=(n+(n-1)); p++)
+    {
+       if (prime[p])
+          pnum.insert(p);
+    }
+}
+
+void backtrack(int v,int numpos)
+{
+	if(v==n && pnum.find(nums[numpos]+1)!=pnum.end())
+	{
+		for(int i=0;i<n-1;i++)
+		{
+			cout<<numstack[i]<<" ";
+		}
+		cout<<numstack[n-1]<<"\n";
+		numbit[numpos]=false;
+		numstack.pop_back();
+		return;
+	}
+
+	for(int i=0;i<n;i++)
+	{
+		if(!numbit[i] && pnum.find(nums[numpos]+nums[i])!=pnum.end())
+		{
+			numstack.push_back(nums[i]);
+			numbit[i]=true;
+			//cout<<nums[i]<<" "<<v+1<<"\n";
+			backtrack(v+1,i);
+		}
+	}
+	numbit[numpos]=false;
+	numstack.pop_back();
+
+}
+
+int main() {
+	int count=1;
+	while(scanf("%d",&n)==1)
+	{
+		for(int i=0;i<n;i++)
+		{
+			nums[i]=i+1;
+			numbit[i]=false;
+		}
+		SieveOfEratosthenes();
+		numbit[0]=true;
+		numstack.push_back(1);
+		if(count!=1)
+		{
+			cout<<"\n";
+		}
+		cout<<"Case "<<count<<":\n";
+		backtrack(1,0);
+		numstack.clear();
+		pnum.clear();
+		count++;
+	}
+	return 0;
+}

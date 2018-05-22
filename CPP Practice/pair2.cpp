@@ -7,6 +7,7 @@ int main() {
 	cout<<p.first<<" "<<p.second<<endl;
 	pair <int,string> p1=make_pair(4,"Mandar");
 	cout<<p1.first<<" "<<p1.second<<endl;
+	//cout<<get<0>(p1)<<" "<<get<1>(p1)<<endl;
 	if(p>p1)
 	{
 		cout<<"Prathameshs Roll No is greater than Mandars\n";
